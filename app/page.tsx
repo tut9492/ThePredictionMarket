@@ -140,7 +140,7 @@ const LANDING_MARKETS = {
         { name: "INDIANA", odds: 14 },
       ],
       volume: "3M VOL",
-      url: "https://polymarket.com/event/college-football-championship",
+      url: "https://polymarket.com/event/college-football-champion-2026-684",
     },
     kalshi: {
       // KALSHI DATA
