@@ -37,8 +37,8 @@ const LANDING_MARKETS = {
     polymarket: {
       title: "DEM. PRESIDENTIAL NOMINEE 2028",
       candidates: [
-        { name: "GAVIN NEWSOM", odds: 13 },
-        { name: "ALEXANDRIA O.", odds: 11 },
+        { name: "GAVIN NEWSOM", odds: 37 },
+        { name: "ALEXANDRIA O.", odds: 10 },
       ],
       volume: "298M VOL",
       url: "https://polymarket.com/event/democratic-presidential-nominee-2028",
@@ -46,11 +46,121 @@ const LANDING_MARKETS = {
     kalshi: {
       title: "DEM. PRESIDENTIAL NOMINEE 2028",
       candidates: [
-        { name: "GAVIN NEWSOM", odds: 37 },
-        { name: "ALEXANDRIA O.", odds: 10 },
+        { name: "GAVIN NEWSOM", odds: 13 },
+        { name: "ALEXANDRIA O.", odds: 11 },
       ],
       volume: "28M VOL",
       url: "https://kalshi.com/markets/kxpresnomd/democratic-primary-winner/kxpresnomd-28",
+    },
+  },
+  bitcoinPrice: {
+    category: "CRYPTO" as const,
+    image: "/superbowl.png", // Replace with bitcoin image
+    polymarket: {
+      title: "HOW HIGH WILL BITCOIN GET THIS YEAR?",
+      candidates: [
+        { name: "$130,000 OR ABOVE", odds: 10 },
+        { name: "$140,000 OR ABOVE", odds: 6 },
+      ],
+      volume: "23.8M VOL",
+      url: "https://polymarket.com/event/bitcoin-price-2025",
+    },
+    kalshi: {
+      title: "HOW HIGH WILL BITCOIN GET THIS YEAR?",
+      candidates: [
+        { name: "$130,000 OR ABOVE", odds: 10 },
+        { name: "$140,000 OR ABOVE", odds: 6 },
+      ],
+      volume: "23.8M VOL",
+      url: "https://kalshi.com/markets/bitcoin",
+    },
+  },
+  collegeFootball: {
+    category: "SPORTS" as const,
+    image: "/superbowl.png", // Replace with college football image
+    polymarket: {
+      title: "COLLEGE FOOTBALL CHAMPIONSHIP WINNER?",
+      candidates: [
+        { name: "OHIO ST.", odds: 38 },
+        { name: "INDIANA", odds: 14 },
+      ],
+      volume: "18.0M VOL",
+      url: "https://polymarket.com/event/college-football-championship",
+    },
+    kalshi: {
+      title: "COLLEGE FOOTBALL CHAMPIONSHIP WINNER?",
+      candidates: [
+        { name: "OHIO ST.", odds: 38 },
+        { name: "INDIANA", odds: 14 },
+      ],
+      volume: "18.0M VOL",
+      url: "https://kalshi.com/markets/college-football",
+    },
+  },
+  nycMayor: {
+    category: "POLITICS" as const,
+    image: "/democrats.jpg",
+    polymarket: {
+      title: "MARGIN OF VICTORY FOR ZOHRAN MAMDANI IN NYC MAYORAL ELECTION?",
+      candidates: [
+        { name: "9-11.99%", odds: 59 },
+        { name: "6-8.99%", odds: 41 },
+      ],
+      volume: "16.6M VOL",
+      url: "https://polymarket.com/event/nyc-mayoral-election",
+    },
+    kalshi: {
+      title: "MARGIN OF VICTORY FOR ZOHRAN MAMDANI IN NYC MAYORAL ELECTION?",
+      candidates: [
+        { name: "9-11.99%", odds: 59 },
+        { name: "6-8.99%", odds: 41 },
+      ],
+      volume: "16.6M VOL",
+      url: "https://kalshi.com/markets/nyc-mayor",
+    },
+  },
+  heisman: {
+    category: "SPORTS" as const,
+    image: "/superbowl.png",
+    polymarket: {
+      title: "COLLEGE FOOTBALL HEISMAN TROPHY WINNER?",
+      candidates: [
+        { name: "FERNANDO MENDOZA", odds: 47 },
+        { name: "JULIAN SAYIN", odds: 36 },
+      ],
+      volume: "16.1M VOL",
+      url: "https://polymarket.com/event/heisman-trophy",
+    },
+    kalshi: {
+      title: "COLLEGE FOOTBALL HEISMAN TROPHY WINNER?",
+      candidates: [
+        { name: "FERNANDO MENDOZA", odds: 47 },
+        { name: "JULIAN SAYIN", odds: 36 },
+      ],
+      volume: "16.1M VOL",
+      url: "https://kalshi.com/markets/heisman",
+    },
+  },
+  ethereumPrice: {
+    category: "CRYPTO" as const,
+    image: "/superbowl.png", // Replace with ethereum image
+    polymarket: {
+      title: "HOW HIGH WILL ETHEREUM GET THIS YEAR?",
+      candidates: [
+        { name: "$5,000 OR ABOVE", odds: 8 },
+        { name: "$5,250 OR ABOVE", odds: 6 },
+      ],
+      volume: "15.3M VOL",
+      url: "https://polymarket.com/event/ethereum-price-2025",
+    },
+    kalshi: {
+      title: "HOW HIGH WILL ETHEREUM GET THIS YEAR?",
+      candidates: [
+        { name: "$5,000 OR ABOVE", odds: 8 },
+        { name: "$5,250 OR ABOVE", odds: 6 },
+      ],
+      volume: "15.3M VOL",
+      url: "https://kalshi.com/markets/ethereum",
     },
   },
 };
