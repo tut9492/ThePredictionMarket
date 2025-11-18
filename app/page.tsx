@@ -192,7 +192,7 @@ function HomeContent() {
       {/* Footer with tut™ logo */}
       <footer className="fixed bottom-6 right-6 z-50">
         <a 
-          href="https://x.com/tut9492" 
+          href="https://x.com/Tuteth_" 
           target="_blank" 
           rel="noopener noreferrer"
           className="block transition-transform hover:scale-110"
