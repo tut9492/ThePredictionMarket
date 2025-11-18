@@ -150,7 +150,7 @@ const LANDING_MARKETS = {
         { name: "INDIANA", odds: 14 },
       ],
       volume: "18.0M VOL",
-      url: "https://kalshi.com/markets/college-football",
+      url: "https://kalshi.com/markets/kxncaaf/ncaaf-championship/kxncaaf-26",
     },
   },
 };
