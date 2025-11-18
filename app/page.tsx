@@ -78,7 +78,7 @@ const LANDING_MARKETS = {
         { name: "$140,000 OR ABOVE", odds: 6 },
       ],
       volume: "23.8M VOL",
-      url: "https://kalshi.com/markets/bitcoin",
+      url: "https://kalshi.com/markets/kxbtcmaxy/how-high-will-bitcoin-get-this-year/kxbtcmaxy-25",
     },
   },
   ethereumPrice: {
