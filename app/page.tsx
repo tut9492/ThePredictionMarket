@@ -68,7 +68,7 @@ const LANDING_MARKETS = {
         { name: "$130,000 OR ABOVE", odds: 10 },
       ],
       volume: "58M VOL",
-      url: "https://polymarket.com/event/bitcoin-price-2025",
+      url: "https://polymarket.com/event/what-price-will-bitcoin-hit-in-2025",
     },
     kalshi: {
       // KALSHI DATA
