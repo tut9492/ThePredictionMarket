@@ -13,21 +13,23 @@ const LANDING_MARKETS = {
     category: "SPORTS" as const,
     image: "/superbowl.png",
     polymarket: {
-      title: "SUPER BOWL CHAMPIONS 2026",
+      // POLYMARKET DATA
+      title: "SUPER BOWL CHAMPION 2026",
       candidates: [
-        { name: "KANSAS CITY", odds: 13 },
-        { name: "LOS ANGELES R", odds: 11 },
+        { name: "PHILADELPHIA", odds: 14 },
+        { name: "LOS ANGELES R", odds: 13 },
       ],
-      volume: "327M VOL",
-      url: "https://polymarket.com/event/super-bowl-champion-2026-731",
+      volume: "543M VOL",
+      url: "https://polymarket.com/event/super-bowl-champion-2026",
     },
     kalshi: {
-      title: "SUPER BOWL CHAMPIONS 2026",
+      // KALSHI DATA
+      title: "PRO FOOTBALL CHAMPION?",
       candidates: [
-        { name: "KANSAS CITY", odds: 12 },
-        { name: "PHILADELPHIA", odds: 12 },
+        { name: "PHILADELPHIA", odds: 15 },
+        { name: "LOS ANGELES R", odds: 13 },
       ],
-      volume: "327M VOL",
+      volume: "34.5M VOL",
       url: "https://kalshi.com/markets/kxsb/super-bowl/kxsb-26",
     },
   },
@@ -35,21 +37,23 @@ const LANDING_MARKETS = {
     category: "POLITICS" as const,
     image: "/democrats.jpg",
     polymarket: {
-      title: "DEM. PRESIDENTIAL NOMINEE 2028",
+      // POLYMARKET DATA
+      title: "DEMOCRATIC PRESIDENTIAL NOMINEE 2028",
       candidates: [
         { name: "GAVIN NEWSOM", odds: 37 },
         { name: "ALEXANDRIA O.", odds: 10 },
       ],
-      volume: "298M VOL",
+      volume: "309M VOL",
       url: "https://polymarket.com/event/democratic-presidential-nominee-2028",
     },
     kalshi: {
-      title: "DEM. PRESIDENTIAL NOMINEE 2028",
+      // KALSHI DATA
+      title: "DEMOCRATIC PRESIDENTIAL NOMINEE IN 2028?",
       candidates: [
-        { name: "GAVIN NEWSOM", odds: 13 },
-        { name: "ALEXANDRIA O.", odds: 11 },
+        { name: "GAVIN NEWSOM", odds: 37 },
+        { name: "ALEXANDRIA OCASIO-CORTEZ", odds: 10 },
       ],
-      volume: "28M VOL",
+      volume: "28.3M VOL",
       url: "https://kalshi.com/markets/kxpresnomd/democratic-primary-winner/kxpresnomd-28",
     },
   },
@@ -57,15 +61,17 @@ const LANDING_MARKETS = {
     category: "CRYPTO" as const,
     image: "/Bitcoin.webp",
     polymarket: {
-      title: "HOW HIGH WILL BITCOIN GET THIS YEAR?",
+      // POLYMARKET DATA
+      title: "WHAT PRICE WILL BITCOIN HIT IN 2025?",
       candidates: [
+        { name: "↓ 90,000", odds: 89 },
         { name: "$130,000 OR ABOVE", odds: 10 },
-        { name: "$140,000 OR ABOVE", odds: 6 },
       ],
-      volume: "23.8M VOL",
+      volume: "58M VOL",
       url: "https://polymarket.com/event/bitcoin-price-2025",
     },
     kalshi: {
+      // KALSHI DATA
       title: "HOW HIGH WILL BITCOIN GET THIS YEAR?",
       candidates: [
         { name: "$130,000 OR ABOVE", odds: 10 },
@@ -75,42 +81,46 @@ const LANDING_MARKETS = {
       url: "https://kalshi.com/markets/bitcoin",
     },
   },
-  collegeFootball: {
-    category: "SPORTS" as const,
-    image: "/College Footbal.jpeg",
+  ethereumPrice: {
+    category: "CRYPTO" as const,
+    image: "/Ethereum.webp",
     polymarket: {
-      title: "COLLEGE FOOTBALL CHAMPIONSHIP WINNER?",
+      // POLYMARKET DATA
+      title: "WHAT PRICE WILL ETHEREUM HIT IN 2025?",
       candidates: [
-        { name: "OHIO ST.", odds: 38 },
-        { name: "INDIANA", odds: 14 },
+        { name: "$5,000", odds: 8 },
+        { name: "$5,250 OR ABOVE", odds: 6 },
       ],
-      volume: "18.0M VOL",
-      url: "https://polymarket.com/event/college-football-championship",
+      volume: "37M VOL",
+      url: "https://polymarket.com/event/ethereum-price-2025",
     },
     kalshi: {
-      title: "COLLEGE FOOTBALL CHAMPIONSHIP WINNER?",
+      // KALSHI DATA
+      title: "HOW HIGH WILL ETHEREUM GET THIS YEAR?",
       candidates: [
-        { name: "OHIO ST.", odds: 38 },
-        { name: "INDIANA", odds: 14 },
+        { name: "$5,000 OR ABOVE", odds: 8 },
+        { name: "$5,250 OR ABOVE", odds: 6 },
       ],
-      volume: "18.0M VOL",
-      url: "https://kalshi.com/markets/college-football",
+      volume: "15.3M VOL",
+      url: "https://kalshi.com/markets/ethereum",
     },
   },
   nycMayor: {
     category: "POLITICS" as const,
     image: "/Zorhan.avif",
     polymarket: {
-      title: "MARGIN OF VICTORY FOR ZOHRAN MAMDANI IN NYC MAYORAL ELECTION?",
+      // POLYMARKET DATA
+      title: "ZOHRAN MAMDANI MARGIN OF VICTORY (SMALLER BRACKETS)",
       candidates: [
+        { name: "5-10%", odds: 98 },
         { name: "9-11.99%", odds: 59 },
-        { name: "6-8.99%", odds: 41 },
       ],
-      volume: "16.6M VOL",
+      volume: "558K VOL",
       url: "https://polymarket.com/event/nyc-mayoral-election",
     },
     kalshi: {
-      title: "MARGIN OF VICTORY FOR ZOHRAN MAMDANI IN NYC MAYORAL ELECTION?",
+      // KALSHI DATA
+      title: "MARGIN OF VICTORY FOR ZOHRAN MAMDANI IN THE NYC MAYORAL ELECTION?",
       candidates: [
         { name: "9-11.99%", odds: 59 },
         { name: "6-8.99%", odds: 41 },
@@ -119,48 +129,28 @@ const LANDING_MARKETS = {
       url: "https://kalshi.com/markets/nyc-mayor",
     },
   },
-  heisman: {
+  collegeFootball: {
     category: "SPORTS" as const,
-    image: "/Heisman.avif",
+    image: "/College Footbal.jpeg",
     polymarket: {
-      title: "COLLEGE FOOTBALL HEISMAN TROPHY WINNER?",
+      // POLYMARKET DATA
+      title: "COLLEGE FOOTBALL CHAMPION 2026",
       candidates: [
-        { name: "FERNANDO MENDOZA", odds: 47 },
-        { name: "JULIAN SAYIN", odds: 36 },
+        { name: "OHIO STATE", odds: 39 },
+        { name: "INDIANA", odds: 14 },
       ],
-      volume: "16.1M VOL",
-      url: "https://polymarket.com/event/heisman-trophy",
+      volume: "3M VOL",
+      url: "https://polymarket.com/event/college-football-championship",
     },
     kalshi: {
-      title: "COLLEGE FOOTBALL HEISMAN TROPHY WINNER?",
+      // KALSHI DATA
+      title: "COLLEGE FOOTBALL CHAMPIONSHIP WINNER?",
       candidates: [
-        { name: "FERNANDO MENDOZA", odds: 47 },
-        { name: "JULIAN SAYIN", odds: 36 },
+        { name: "OHIO ST.", odds: 38 },
+        { name: "INDIANA", odds: 14 },
       ],
-      volume: "16.1M VOL",
-      url: "https://kalshi.com/markets/heisman",
-    },
-  },
-  ethereumPrice: {
-    category: "CRYPTO" as const,
-    image: "/Ethereum.webp",
-    polymarket: {
-      title: "HOW HIGH WILL ETHEREUM GET THIS YEAR?",
-      candidates: [
-        { name: "$5,000 OR ABOVE", odds: 8 },
-        { name: "$5,250 OR ABOVE", odds: 6 },
-      ],
-      volume: "15.3M VOL",
-      url: "https://polymarket.com/event/ethereum-price-2025",
-    },
-    kalshi: {
-      title: "HOW HIGH WILL ETHEREUM GET THIS YEAR?",
-      candidates: [
-        { name: "$5,000 OR ABOVE", odds: 8 },
-        { name: "$5,250 OR ABOVE", odds: 6 },
-      ],
-      volume: "15.3M VOL",
-      url: "https://kalshi.com/markets/ethereum",
+      volume: "18.0M VOL",
+      url: "https://kalshi.com/markets/college-football",
     },
   },
 };
