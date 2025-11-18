@@ -1,5 +1,7 @@
 # The Prediction Market Dashboard
 
+> The Coinmarketcap of prediction markets and more
+
 ## 🎯 Project Overview
 A comprehensive analytics dashboard that aggregates and compares data across the top prediction market platforms (Polymarket and Kalshi). Provides real-time volume metrics, user statistics, and market comparisons to help traders make informed decisions.
 
@@ -70,7 +72,7 @@ A comprehensive analytics dashboard that aggregates and compares data across the
 ### Installation
 ```bash
 # Clone the repository
-git clone [your-repo-url]
+git clone https://github.com/tut9492/ThePredictionMarket.git
 
 # Install dependencies
 npm install
