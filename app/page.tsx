@@ -77,7 +77,7 @@ const LANDING_MARKETS = {
   },
   collegeFootball: {
     category: "SPORTS" as const,
-    image: "/superbowl.png", // Using Super Bowl image as placeholder
+    image: "/College Footbal.jpeg",
     polymarket: {
       title: "COLLEGE FOOTBALL CHAMPIONSHIP WINNER?",
       candidates: [
