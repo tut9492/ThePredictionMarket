@@ -55,7 +55,7 @@ const LANDING_MARKETS = {
   },
   bitcoinPrice: {
     category: "CRYPTO" as const,
-    image: "/superbowl.png", // Replace with bitcoin image
+    image: "/Bitcoin.webp",
     polymarket: {
       title: "HOW HIGH WILL BITCOIN GET THIS YEAR?",
       candidates: [
@@ -77,7 +77,7 @@ const LANDING_MARKETS = {
   },
   collegeFootball: {
     category: "SPORTS" as const,
-    image: "/superbowl.png", // Replace with college football image
+    image: "/superbowl.png", // Using Super Bowl image as placeholder
     polymarket: {
       title: "COLLEGE FOOTBALL CHAMPIONSHIP WINNER?",
       candidates: [
@@ -99,7 +99,7 @@ const LANDING_MARKETS = {
   },
   nycMayor: {
     category: "POLITICS" as const,
-    image: "/democrats.jpg",
+    image: "/Zorhan.avif",
     polymarket: {
       title: "MARGIN OF VICTORY FOR ZOHRAN MAMDANI IN NYC MAYORAL ELECTION?",
       candidates: [
@@ -121,7 +121,7 @@ const LANDING_MARKETS = {
   },
   heisman: {
     category: "SPORTS" as const,
-    image: "/superbowl.png",
+    image: "/Heisman.avif",
     polymarket: {
       title: "COLLEGE FOOTBALL HEISMAN TROPHY WINNER?",
       candidates: [
@@ -143,7 +143,7 @@ const LANDING_MARKETS = {
   },
   ethereumPrice: {
     category: "CRYPTO" as const,
-    image: "/superbowl.png", // Replace with ethereum image
+    image: "/Ethereum.webp",
     polymarket: {
       title: "HOW HIGH WILL ETHEREUM GET THIS YEAR?",
       candidates: [
