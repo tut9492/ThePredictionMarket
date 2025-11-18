@@ -20,7 +20,7 @@ const LANDING_MARKETS = {
         { name: "LOS ANGELES R", odds: 13 },
       ],
       volume: "543M VOL",
-      url: "https://polymarket.com/event/super-bowl-champion-2026",
+      url: "https://polymarket.com/event/super-bowl-champion-2026-731",
     },
     kalshi: {
       // KALSHI DATA
