@@ -113,7 +113,6 @@ const totalUsers = {
 
 function VerticalBarChart({ data, total, title }: any) {
   const allData = [...data, total];
-  const maxValue = total.current;
   
   return (
     <div className="bg-white rounded-2xl border border-[#E5E5E5] p-8 shadow-sm">
@@ -143,15 +142,16 @@ function VerticalBarChart({ data, total, title }: any) {
           <div style={{ position: 'absolute', left: '16px', right: 0, top: 0, bottom: 0, display: 'flex', alignItems: 'flex-end', gap: '24px' }}>
             {allData.map((item: any, index: number) => {
               const isTotal = item.platform === 'TOTAL';
-              const percentageOfTotal = ((item.current / maxValue) * 100).toFixed(1);
+              const percentageOfTotal = ((item.current / total.current) * 100).toFixed(1);
               
               // Height calculation - TOTAL at 92%, others scaled with square root
-              const heightPercent = isTotal ? 92 : (Math.sqrt(item.current / maxValue) * 92);
+              const heightPercent = isTotal ? 92 : (Math.sqrt(item.current / total.current) * 92);
               const athHeightPercent = isTotal ? 92 : (Math.sqrt(item.ath / total.ath) * 92);
               
               return (
                 <div 
                   key={index}
+                  className="group relative"
                   style={{ 
                     width: isTotal ? '80px' : '70px',
                     height: '100%',
@@ -162,33 +162,69 @@ function VerticalBarChart({ data, total, title }: any) {
                     marginLeft: isTotal ? '32px' : '0'
                   }}
                 >
+                  {/* Tooltip on hover */}
+                  <div className="absolute bottom-full mb-2 hidden group-hover:block z-50 pointer-events-none">
+                    <div className="bg-gray-900 text-white px-4 py-3 rounded-lg shadow-xl text-sm whitespace-nowrap">
+                      <div className="font-bold mb-2 text-center border-b border-gray-700 pb-2">
+                        {item.platform}
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex justify-between gap-4">
+                          <span className="text-gray-400">Current:</span>
+                          <span className="font-semibold">{item.displayCurrent}</span>
+                        </div>
+                        <div className="flex justify-between gap-4">
+                          <span className="text-gray-400">ATH:</span>
+                          <span className="font-semibold">{item.displayATH}</span>
+                        </div>
+                        <div className="flex justify-between gap-4">
+                          <span className="text-gray-400">% of ATH:</span>
+                          <span className="font-semibold">{item.percentage}%</span>
+                        </div>
+                        <div className="flex justify-between gap-4 pt-1 border-t border-gray-700">
+                          <span className="text-gray-400">% of Total:</span>
+                          <span className="font-semibold">{percentageOfTotal}%</span>
+                        </div>
+                      </div>
+                      {/* Arrow pointing down */}
+                      <div className="absolute left-1/2 -translate-x-1/2 -bottom-1 w-2 h-2 bg-gray-900 rotate-45"></div>
+                    </div>
+                  </div>
+                  
                   <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'flex-end' }}>
                     {/* ATH bar */}
-                    <div style={{
-                      position: 'absolute',
-                      bottom: 0,
-                      width: '100%',
-                      height: `${athHeightPercent}%`,
-                      backgroundColor: item.color,
-                      opacity: 0.25,
-                      borderRadius: '8px 8px 0 0',
-                      transform: 'translateX(-8px)'
-                    }}></div>
+                    <div 
+                      className="transition-opacity duration-200 group-hover:opacity-40"
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        width: '100%',
+                        height: `${athHeightPercent}%`,
+                        backgroundColor: item.color,
+                        opacity: 0.25,
+                        borderRadius: '8px 8px 0 0',
+                        transform: 'translateX(-8px)'
+                      }}
+                    ></div>
                     
                     {/* Current bar */}
-                    <div style={{
-                      width: '100%',
-                      height: `${heightPercent}%`,
-                      backgroundColor: item.color,
-                      borderRadius: '8px 8px 0 0',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '4px',
-                      padding: '8px',
-                      minHeight: '70px'
-                    }}>
+                    <div 
+                      className="transition-all duration-200 group-hover:brightness-110 group-hover:scale-105"
+                      style={{
+                        width: '100%',
+                        height: `${heightPercent}%`,
+                        backgroundColor: item.color,
+                        borderRadius: '8px 8px 0 0',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '4px',
+                        padding: '8px',
+                        minHeight: '70px',
+                        cursor: 'pointer'
+                      }}
+                    >
                       <div style={{ fontSize: '14px', fontWeight: 'bold', color: 'white' }}>{item.displayCurrent}</div>
                       <div style={{ fontSize: '12px', color: 'white', opacity: 0.9 }}>{percentageOfTotal}%</div>
                     </div>
