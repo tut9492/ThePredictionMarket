@@ -126,7 +126,7 @@ const LANDING_MARKETS = {
         { name: "6-8.99%", odds: 41 },
       ],
       volume: "16.6M VOL",
-      url: "https://kalshi.com/markets/nyc-mayor",
+      url: "https://kalshi.com/markets/kxelectionmovzohran/zohran-mov/kxelectionmovzohran-25",
     },
   },
   collegeFootball: {
