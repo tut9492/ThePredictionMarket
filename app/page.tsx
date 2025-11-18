@@ -102,7 +102,7 @@ const LANDING_MARKETS = {
         { name: "$5,250 OR ABOVE", odds: 6 },
       ],
       volume: "15.3M VOL",
-      url: "https://kalshi.com/markets/ethereum",
+      url: "https://kalshi.com/markets/kxethmaxy/how-high-will-ethereum-get-this-year/kxethmaxy-25dec31",
     },
   },
   nycMayor: {
