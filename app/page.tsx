@@ -92,7 +92,7 @@ const LANDING_MARKETS = {
         { name: "$5,250 OR ABOVE", odds: 6 },
       ],
       volume: "37M VOL",
-      url: "https://polymarket.com/event/ethereum-price-2025",
+      url: "https://polymarket.com/event/what-price-will-ethereum-hit-in-2025",
     },
     kalshi: {
       // KALSHI DATA
