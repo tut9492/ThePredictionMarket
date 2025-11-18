@@ -116,7 +116,7 @@ const LANDING_MARKETS = {
         { name: "9-11.99%", odds: 59 },
       ],
       volume: "558K VOL",
-      url: "https://polymarket.com/event/nyc-mayoral-election",
+      url: "https://polymarket.com/event/zohran-mamdani-margin-of-victory-smaller-brackets",
     },
     kalshi: {
       // KALSHI DATA
