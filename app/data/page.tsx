@@ -308,11 +308,18 @@ export default function DataPage() {
       </main>
 
       <footer className="fixed bottom-6 right-6 z-50">
-        <img
-          src="/prediction-market/market-logos/MASTER LOGO.png"
-          alt="tut™"
-          className="h-12 w-auto opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
-        />
+        <a 
+          href="https://x.com/tut9492" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="block transition-transform hover:scale-110"
+        >
+          <img
+            src="/prediction-market/market-logos/MASTER LOGO.png"
+            alt="tut™"
+            className="h-12 w-auto opacity-100 hover:opacity-80 transition-opacity cursor-pointer"
+          />
+        </a>
       </footer>
     </div>
   );
