@@ -4,7 +4,7 @@
 
 ## Live Demo
 
-[View Live Application]([YOUR_DEPLOYED_URL](https://www.thepredictionmarket.xyz/))
+[View Live Application](https://www.thepredictionmarket.xyz/)
 
 ## Demo Video
 
