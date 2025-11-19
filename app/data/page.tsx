@@ -7,53 +7,63 @@ import { Header } from "@/app/(components)/Header";
 const volumeData = [
   {
     platform: 'MYRIAD',
-    current: 11054008,
+    current: 15541511,
     ath: 21576428,
-    displayCurrent: '11.1M',
+    displayCurrent: '15.5M',
     displayATH: '21.6M',
-    percentage: 51,
+    percentage: 72,
     color: '#8B5CF6',
     logo: '/prediction-market/market-logos/Myriad.jpg'
   },
   {
     platform: 'LIMITLESS',
-    current: 14540118,
+    current: 11971110,
     ath: 15905424,
-    displayCurrent: '14.5M',
+    displayCurrent: '12.0M',
     displayATH: '15.9M',
-    percentage: 91,
+    percentage: 75,
     color: '#A3E635',
     logo: '/prediction-market/market-logos/limitless.png'
   },
   {
     platform: 'KALSHI',
-    current: 1304733534,
+    current: 1240160888,
     ath: 1304733534,
-    displayCurrent: '1.30B',
+    displayCurrent: '1.24B',
     displayATH: '1.30B',
-    percentage: 100,
+    percentage: 95,
     color: '#10B981',
     logo: '/prediction-market/market-logos/kalshi.png'
   },
   {
     platform: 'POLYMARKET',
-    current: 1001788838,
+    current: 952488910,
     ath: 1107382201,
-    displayCurrent: '1.00B',
+    displayCurrent: '952.5M',
     displayATH: '1.11B',
-    percentage: 90,
+    percentage: 86,
     color: '#3B82F6',
     logo: '/prediction-market/market-logos/polymarket.png'
+  },
+  {
+    platform: 'OPINION',
+    current: 1461474889,
+    ath: 1461474889,
+    displayCurrent: '1.46B',
+    displayATH: '1.46B',
+    percentage: 100,
+    color: '#EF4444',
+    logo: '/prediction-market/market-logos/opinion.jpeg'
   }
 ];
 
 const totalVolume = {
   platform: 'TOTAL',
-  current: 2998087080,
-  ath: 3154525841,
-  displayCurrent: '3.0B',
-  displayATH: '3.15B',
-  percentage: 95,
+  current: 3681637308,
+  ath: 4911071976,
+  displayCurrent: '3.68B',
+  displayATH: '4.91B',
+  percentage: 75,
   color: '#FBBF24'
 };
 
@@ -107,7 +117,7 @@ const userData = [
     displayATH: '50K',
     percentage: 74,
     color: '#EF4444',
-    logo: '/prediction-market/market-logos/opinion.png'
+    logo: '/prediction-market/market-logos/opinion.jpeg'
   }
 ];
 
@@ -129,7 +139,7 @@ function VerticalBarChart({ data, total, title }: any) {
       <h2 className="text-xl font-light uppercase mb-2 text-left text-gray-700 tracking-wide">
         {title}
       </h2>
-      <p className="text-xs text-gray-400 uppercase tracking-wider mb-8">Week of November 3, 2025</p>
+      <p className="text-xs text-gray-400 uppercase tracking-wider mb-8">Week of November 10, 2025</p>
       
       {/* EXACT SAME STRUCTURE FOR BOTH CHARTS */}
       <div style={{ height: '600px', display: 'flex', flexDirection: 'column' }}>
