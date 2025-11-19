@@ -132,7 +132,9 @@ const totalUsers = {
 };
 
 function VerticalBarChart({ data, total, title }: any) {
-  const allData = [...data, total];
+  // Sort data by current value in ascending order (smallest to largest)
+  const sortedData = [...data].sort((a, b) => a.current - b.current);
+  const allData = [...sortedData, total];
   
   return (
     <div className="bg-white rounded-2xl border border-[#E5E5E5] p-8 shadow-sm">
