@@ -53,7 +53,7 @@ const volumeData = [
     displayATH: '1.46B',
     percentage: 100,
     color: '#EF4444',
-    logo: '/prediction-market/market-logos/opinion.jpeg'
+    logo: '/prediction-market/market-logos/opinion.jpg'
   }
 ];
 
@@ -117,7 +117,7 @@ const userData = [
     displayATH: '50K',
     percentage: 74,
     color: '#EF4444',
-    logo: '/prediction-market/market-logos/opinion.jpeg'
+    logo: '/prediction-market/market-logos/opinion.jpg'
   }
 ];
 
