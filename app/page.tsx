@@ -104,15 +104,9 @@ function HomeContent() {
           </div>
         </div>
 
-        {/* Debug: Show current view mode */}
-        <div className="mb-4 text-sm bg-yellow-100 p-2 rounded">
-          Current View: <strong>{viewMode}</strong>
-        </div>
-
         {/* Cards View */}
         {viewMode === "cards" && (
           <div>
-            <h2 className="text-2xl mb-4">Card View Active</h2>
             {filteredMarkets.map(([key, market]) => (
               <div key={key} className="grid grid-cols-2 gap-8 mb-12">
                 <MarketCard
@@ -139,7 +133,6 @@ function HomeContent() {
         {/* List View */}
         {viewMode === "list" && (
           <div>
-            <h2 className="text-2xl mb-4">List View Active</h2>
             <div className="bg-white rounded-lg border p-6">
               {filteredMarkets.map(([key, market]) => (
                 <div key={key} className="border-b py-4 last:border-0">

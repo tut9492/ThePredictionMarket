@@ -61,53 +61,63 @@ const totalVolume = {
 const userData = [
   {
     platform: 'MYRIAD',
-    current: 5436,
+    current: 2417,
     ath: 7645,
-    displayCurrent: '5.4K',
+    displayCurrent: '2.4K',
     displayATH: '7.6K',
-    percentage: 71,
+    percentage: 32,
     color: '#8B5CF6',
     logo: '/prediction-market/market-logos/Myriad.jpg'
   },
   {
     platform: 'LIMITLESS',
-    current: 6958,
+    current: 9177,
     ath: 28615,
-    displayCurrent: '7.0K',
+    displayCurrent: '9.2K',
     displayATH: '28.6K',
-    percentage: 24,
+    percentage: 32,
     color: '#A3E635',
     logo: '/prediction-market/market-logos/limitless.png'
   },
   {
     platform: 'KALSHI',
-    current: 120000,
+    current: 0,
     ath: 120000,
-    displayCurrent: '120K',
+    displayCurrent: '0',
     displayATH: '120K',
-    percentage: 100,
+    percentage: 0,
     color: '#10B981',
     logo: '/prediction-market/market-logos/kalshi.png'
   },
   {
     platform: 'POLYMARKET',
-    current: 225638,
+    current: 222823,
     ath: 250868,
-    displayCurrent: '225.6K',
+    displayCurrent: '222.8K',
     displayATH: '250.9K',
-    percentage: 90,
+    percentage: 89,
     color: '#3B82F6',
     logo: '/prediction-market/market-logos/polymarket.png'
+  },
+  {
+    platform: 'OPINION',
+    current: 36981,
+    ath: 50000,
+    displayCurrent: '37.0K',
+    displayATH: '50K',
+    percentage: 74,
+    color: '#EF4444',
+    logo: '/prediction-market/market-logos/opinion.png'
   }
 ];
 
 const totalUsers = {
   platform: 'TOTAL',
-  current: 408657,
-  ath: 408657,
-  displayCurrent: '408.7K',
-  displayATH: '408.7K',
-  percentage: 100,
+  current: 271398,
+  ath: 457128,
+  displayCurrent: '271.4K',
+  displayATH: '457.1K',
+  percentage: 59,
   color: '#FBBF24'
 };
 
