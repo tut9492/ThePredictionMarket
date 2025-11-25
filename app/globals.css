@@ -16,3 +16,29 @@ body {
   background-color: var(--bg-primary);
 }
 
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 60s linear infinite;
+  will-change: transform;
+  pointer-events: auto;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+.animate-scroll a {
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 10;
+  display: block;
+}
+

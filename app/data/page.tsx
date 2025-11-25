@@ -7,51 +7,51 @@ import { Header } from "@/app/(components)/Header";
 const volumeData = [
   {
     platform: 'MYRIAD',
-    current: 15541511,
+    current: 18893562,
     ath: 21576428,
-    displayCurrent: '15.5M',
+    displayCurrent: '18.9M',
     displayATH: '21.6M',
-    percentage: 72,
+    percentage: 88,
     color: '#8B5CF6',
     logo: '/prediction-market/market-logos/Myriad.jpg'
   },
   {
     platform: 'LIMITLESS',
-    current: 11971110,
+    current: 16931461,
     ath: 15905424,
-    displayCurrent: '12.0M',
+    displayCurrent: '16.9M',
     displayATH: '15.9M',
-    percentage: 75,
+    percentage: 106,
     color: '#A3E635',
     logo: '/prediction-market/market-logos/limitless.png'
   },
   {
     platform: 'KALSHI',
-    current: 1240160888,
+    current: 607968450,
     ath: 1304733534,
-    displayCurrent: '1.24B',
+    displayCurrent: '608.0M',
     displayATH: '1.30B',
-    percentage: 95,
+    percentage: 47,
     color: '#10B981',
     logo: '/prediction-market/market-logos/kalshi.png'
   },
   {
     platform: 'POLYMARKET',
-    current: 952488910,
+    current: 986575712,
     ath: 1107382201,
-    displayCurrent: '952.5M',
+    displayCurrent: '986.6M',
     displayATH: '1.11B',
-    percentage: 86,
+    percentage: 89,
     color: '#3B82F6',
     logo: '/prediction-market/market-logos/polymarket.png'
   },
   {
     platform: 'OPINION',
-    current: 1461474889,
+    current: 818304761,
     ath: 1461474889,
-    displayCurrent: '1.46B',
+    displayCurrent: '818.3M',
     displayATH: '1.46B',
-    percentage: 100,
+    percentage: 56,
     color: '#EF4444',
     logo: '/prediction-market/market-logos/opinion.jpg'
   }
@@ -59,11 +59,11 @@ const volumeData = [
 
 const totalVolume = {
   platform: 'TOTAL',
-  current: 3681637308,
+  current: 2448673946,
   ath: 4911071976,
-  displayCurrent: '3.68B',
+  displayCurrent: '2.45B',
   displayATH: '4.91B',
-  percentage: 75,
+  percentage: 50,
   color: '#FBBF24'
 };
 
@@ -141,7 +141,7 @@ function VerticalBarChart({ data, total, title }: any) {
       <h2 className="text-xl font-light uppercase mb-2 text-left text-gray-700 tracking-wide">
         {title}
       </h2>
-      <p className="text-xs text-gray-400 uppercase tracking-wider mb-8">Week of November 10, 2025</p>
+      <p className="text-xs text-gray-400 uppercase tracking-wider mb-8">Week of November 17, 2025</p>
       
       {/* EXACT SAME STRUCTURE FOR BOTH CHARTS */}
       <div style={{ height: '600px', display: 'flex', flexDirection: 'column' }}>

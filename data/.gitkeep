@@ -1,0 +1,7 @@
+# This directory stores market data synced from Polymarket API
+# Run: GET /api/markets/sync to fetch and store data
+# Then: GET /api/markets/data to retrieve stored data
+
+
+
+

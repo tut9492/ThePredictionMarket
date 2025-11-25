@@ -1,0 +1,422 @@
+{
+  "superBowl": {
+    "key": "superBowl",
+    "category": "SPORTS",
+    "image": "/superbowl.png",
+    "polymarket": {
+      "title": "Super Bowl Champion 2026",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 0
+        },
+        {
+          "name": "NO",
+          "odds": 100
+        }
+      ],
+      "volume": "554.5M VOL",
+      "url": "https://polymarket.com/event/super-bowl-champion-2026-731"
+    },
+    "lastUpdated": "2025-11-20T22:01:53.298Z"
+  },
+  "highestGrossingMovie": {
+    "key": "highestGrossingMovie",
+    "category": "SOCIAL",
+    "image": "/superbowl.png",
+    "polymarket": {
+      "title": "2025 National Heads-Up Poker Championship Winner",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 0
+        },
+        {
+          "name": "NO",
+          "odds": 100
+        }
+      ],
+      "volume": "178.0M VOL",
+      "url": "https://polymarket.com/event/2025-national-heads-up-poker-championship-winner-845"
+    },
+    "lastUpdated": "2025-11-20T22:01:54.755Z"
+  },
+  "largestCompany2025": {
+    "key": "largestCompany2025",
+    "category": "CRYPTO",
+    "image": "/superbowl.png",
+    "polymarket": {
+      "title": "2025 National Heads-Up Poker Championship Winner",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 0
+        },
+        {
+          "name": "NO",
+          "odds": 100
+        }
+      ],
+      "volume": "178.0M VOL",
+      "url": "https://polymarket.com/event/2025-national-heads-up-poker-championship-winner-845"
+    },
+    "lastUpdated": "2025-11-20T22:01:55.723Z"
+  },
+  "demNominee2028": {
+    "key": "demNominee2028",
+    "category": "POLITICS",
+    "image": "/democrats.jpg",
+    "polymarket": {
+      "title": "Democratic Presidential Nominee 2028",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 1
+        },
+        {
+          "name": "NO",
+          "odds": 99
+        }
+      ],
+      "volume": "313.7M VOL",
+      "url": "https://polymarket.com/event/democratic-presidential-nominee-2028"
+    },
+    "lastUpdated": "2025-11-20T22:01:56.027Z"
+  },
+  "chileElection": {
+    "key": "chileElection",
+    "category": "POLITICS",
+    "image": "/democrats.jpg",
+    "polymarket": {
+      "title": "Democratic Presidential Nominee 2028",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 1
+        },
+        {
+          "name": "NO",
+          "odds": 99
+        }
+      ],
+      "volume": "313.7M VOL",
+      "url": "https://polymarket.com/event/democratic-presidential-nominee-2028"
+    },
+    "lastUpdated": "2025-11-20T22:01:56.187Z"
+  },
+  "championsLeague": {
+    "key": "championsLeague",
+    "category": "SPORTS",
+    "image": "/superbowl.png",
+    "polymarket": {
+      "title": "2025 National Heads-Up Poker Championship Winner",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 0
+        },
+        {
+          "name": "NO",
+          "odds": 100
+        }
+      ],
+      "volume": "178.0M VOL",
+      "url": "https://polymarket.com/event/2025-national-heads-up-poker-championship-winner-845"
+    },
+    "lastUpdated": "2025-11-20T22:01:56.431Z"
+  },
+  "pokerChampionship": {
+    "key": "pokerChampionship",
+    "category": "SPORTS",
+    "image": "/superbowl.png",
+    "polymarket": {
+      "title": "2025 National Heads-Up Poker Championship Winner",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 0
+        },
+        {
+          "name": "NO",
+          "odds": 100
+        }
+      ],
+      "volume": "178.0M VOL",
+      "url": "https://polymarket.com/event/2025-national-heads-up-poker-championship-winner-845"
+    },
+    "lastUpdated": "2025-11-20T22:01:56.564Z"
+  },
+  "bitcoinPriceNovember": {
+    "key": "bitcoinPriceNovember",
+    "category": "CRYPTO",
+    "image": "/superbowl.png",
+    "polymarket": {
+      "title": "What price will Bitcoin hit in 2025?",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 1
+        },
+        {
+          "name": "NO",
+          "odds": 99
+        }
+      ],
+      "volume": "61.1M VOL",
+      "url": "https://polymarket.com/event/what-price-will-bitcoin-hit-in-2025"
+    },
+    "lastUpdated": "2025-11-20T22:01:56.723Z"
+  },
+  "presElection2028": {
+    "key": "presElection2028",
+    "category": "POLITICS",
+    "image": "/democrats.jpg",
+    "polymarket": {
+      "title": "Democratic Presidential Nominee 2028",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 1
+        },
+        {
+          "name": "NO",
+          "odds": 99
+        }
+      ],
+      "volume": "313.7M VOL",
+      "url": "https://polymarket.com/event/democratic-presidential-nominee-2028"
+    },
+    "lastUpdated": "2025-11-20T22:01:56.875Z"
+  },
+  "bitcoinPrice2025": {
+    "key": "bitcoinPrice2025",
+    "category": "CRYPTO",
+    "image": "/superbowl.png",
+    "polymarket": {
+      "title": "2025 National Heads-Up Poker Championship Winner",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 0
+        },
+        {
+          "name": "NO",
+          "odds": 100
+        }
+      ],
+      "volume": "178.0M VOL",
+      "url": "https://polymarket.com/event/2025-national-heads-up-poker-championship-winner-845"
+    },
+    "lastUpdated": "2025-11-20T22:01:57.021Z"
+  },
+  "spotifyArtist2025": {
+    "key": "spotifyArtist2025",
+    "category": "SOCIAL",
+    "image": "/superbowl.png",
+    "polymarket": {
+      "title": "2025 National Heads-Up Poker Championship Winner",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 0
+        },
+        {
+          "name": "NO",
+          "odds": 100
+        }
+      ],
+      "volume": "178.0M VOL",
+      "url": "https://polymarket.com/event/2025-national-heads-up-poker-championship-winner-845"
+    },
+    "lastUpdated": "2025-11-20T22:01:57.143Z"
+  },
+  "premierLeague": {
+    "key": "premierLeague",
+    "category": "SPORTS",
+    "image": "/superbowl.png",
+    "polymarket": {
+      "title": "2025 National Heads-Up Poker Championship Winner",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 0
+        },
+        {
+          "name": "NO",
+          "odds": 100
+        }
+      ],
+      "volume": "178.0M VOL",
+      "url": "https://polymarket.com/event/2025-national-heads-up-poker-championship-winner-845"
+    },
+    "lastUpdated": "2025-11-20T22:01:57.306Z"
+  },
+  "fedDecision": {
+    "key": "fedDecision",
+    "category": "CRYPTO",
+    "image": "/superbowl.png",
+    "polymarket": {
+      "title": "Fed decision in December?",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 1
+        },
+        {
+          "name": "NO",
+          "odds": 99
+        }
+      ],
+      "volume": "131.1M VOL",
+      "url": "https://polymarket.com/event/fed-decision-in-december"
+    },
+    "lastUpdated": "2025-11-20T22:01:57.467Z"
+  },
+  "laLigaWinner": {
+    "key": "laLigaWinner",
+    "category": "SPORTS",
+    "image": "/superbowl.png",
+    "polymarket": {
+      "title": "2025 National Heads-Up Poker Championship Winner",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 0
+        },
+        {
+          "name": "NO",
+          "odds": 100
+        }
+      ],
+      "volume": "178.0M VOL",
+      "url": "https://polymarket.com/event/2025-national-heads-up-poker-championship-winner-845"
+    },
+    "lastUpdated": "2025-11-20T22:01:57.614Z"
+  },
+  "ethereumPrice2025": {
+    "key": "ethereumPrice2025",
+    "category": "CRYPTO",
+    "image": "/superbowl.png",
+    "polymarket": {
+      "title": "2025 National Heads-Up Poker Championship Winner",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 0
+        },
+        {
+          "name": "NO",
+          "odds": 100
+        }
+      ],
+      "volume": "178.0M VOL",
+      "url": "https://polymarket.com/event/2025-national-heads-up-poker-championship-winner-845"
+    },
+    "lastUpdated": "2025-11-20T22:01:57.726Z"
+  },
+  "f1Champion": {
+    "key": "f1Champion",
+    "category": "SPORTS",
+    "image": "/superbowl.png",
+    "polymarket": {
+      "title": "Super Bowl Champion 2026",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 0
+        },
+        {
+          "name": "NO",
+          "odds": 100
+        }
+      ],
+      "volume": "554.5M VOL",
+      "url": "https://polymarket.com/event/super-bowl-champion-2026-731"
+    },
+    "lastUpdated": "2025-11-20T22:01:57.872Z"
+  },
+  "nbaChampion2026": {
+    "key": "nbaChampion2026",
+    "category": "SPORTS",
+    "image": "/superbowl.png",
+    "polymarket": {
+      "title": "Super Bowl Champion 2026",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 0
+        },
+        {
+          "name": "NO",
+          "odds": 100
+        }
+      ],
+      "volume": "554.5M VOL",
+      "url": "https://polymarket.com/event/super-bowl-champion-2026-731"
+    },
+    "lastUpdated": "2025-11-20T22:01:57.996Z"
+  },
+  "repNominee2028": {
+    "key": "repNominee2028",
+    "category": "POLITICS",
+    "image": "/democrats.jpg",
+    "polymarket": {
+      "title": "Democratic Presidential Nominee 2028",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 1
+        },
+        {
+          "name": "NO",
+          "odds": 99
+        }
+      ],
+      "volume": "313.7M VOL",
+      "url": "https://polymarket.com/event/democratic-presidential-nominee-2028"
+    },
+    "lastUpdated": "2025-11-20T22:01:58.149Z"
+  },
+  "russiaUkraineCeasefire": {
+    "key": "russiaUkraineCeasefire",
+    "category": "POLITICS",
+    "image": "/democrats.jpg",
+    "polymarket": {
+      "title": "2025 National Heads-Up Poker Championship Winner",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 0
+        },
+        {
+          "name": "NO",
+          "odds": 100
+        }
+      ],
+      "volume": "178.0M VOL",
+      "url": "https://polymarket.com/event/2025-national-heads-up-poker-championship-winner-845"
+    },
+    "lastUpdated": "2025-11-20T22:01:58.281Z"
+  },
+  "xiJinpingOut": {
+    "key": "xiJinpingOut",
+    "category": "POLITICS",
+    "image": "/democrats.jpg",
+    "polymarket": {
+      "title": "2025 National Heads-Up Poker Championship Winner",
+      "candidates": [
+        {
+          "name": "YES",
+          "odds": 0
+        },
+        {
+          "name": "NO",
+          "odds": 100
+        }
+      ],
+      "volume": "178.0M VOL",
+      "url": "https://polymarket.com/event/2025-national-heads-up-poker-championship-winner-845"
+    },
+    "lastUpdated": "2025-11-20T22:01:58.433Z"
+  }
+}
