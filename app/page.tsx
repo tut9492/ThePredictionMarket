@@ -353,7 +353,7 @@ function HomeContent() {
   const searchParams = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState<CategoryKey>("ALL");
   const [sortBy, setSortBy] = useState<"volume" | "trending">("volume");
-  const [markets, setMarkets] = useState<typeof LANDING_MARKETS>(LANDING_MARKETS);
+  const [markets, setMarkets] = useState<Record<string, any>>(LANDING_MARKETS);
   const [marketTimestamps, setMarketTimestamps] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(true);
 
@@ -366,11 +366,11 @@ function HomeContent() {
         
         if (result.success && result.data && Object.keys(result.data).length > 0) {
           // Transform backend data to match LANDING_MARKETS format
-          const transformedMarkets: typeof LANDING_MARKETS = {};
+          const transformedMarkets: Record<string, any> = {};
           
           const timestamps: Record<string, string> = {};
           Object.entries(result.data).forEach(([key, marketData]: [string, any]) => {
-            transformedMarkets[key as keyof typeof LANDING_MARKETS] = {
+            transformedMarkets[key] = {
               category: marketData.category as any,
               image: marketData.image,
               polymarket: {
@@ -517,7 +517,7 @@ function HomeContent() {
                 </div>
                 <div className="flex">
                   <div className="flex-1 p-3">
-                    {market.polymarket.candidates.map((candidate, idx) => (
+                    {market.polymarket.candidates.map((candidate: any, idx: number) => (
                       <div key={idx} className="mb-2">
                         <div className="text-[10px] text-gray-600 uppercase mb-1">
                           {candidate.name}
@@ -618,7 +618,7 @@ function HomeContent() {
               </div>
               
               <div className="col-span-2 flex flex-col justify-center gap-2">
-                {market.polymarket.candidates.map((c, i) => (
+                {market.polymarket.candidates.map((c: any, i: number) => (
                   <div key={i} className="text-sm text-gray-900 uppercase font-medium">
                     {c.name}
                   </div>
@@ -626,7 +626,7 @@ function HomeContent() {
               </div>
               
               <div className="col-span-2 flex flex-col justify-center items-center gap-2">
-                {market.polymarket.candidates.map((c, i) => (
+                {market.polymarket.candidates.map((c: any, i: number) => (
                   <div key={i} className="text-base font-semibold text-teal-600">
                     {c.odds}¢
                   </div>
@@ -634,7 +634,7 @@ function HomeContent() {
               </div>
               
               <div className="col-span-1 flex flex-col justify-center items-center gap-2">
-                {market.polymarket.candidates.map((c, i) => (
+                {market.polymarket.candidates.map((c: any, i: number) => (
                   <div key={i} className="text-base font-semibold text-pink-600">
                     {100 - c.odds}¢
                   </div>
