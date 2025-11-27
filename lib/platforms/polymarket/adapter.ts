@@ -235,7 +235,7 @@ export class PolymarketAdapter implements PlatformAdapter {
         question.includes('ethereum') ||
         question.includes('btc') ||
         question.includes('eth')) {
-      return 'Crypto';
+      return 'CRYPTO';
     }
     
     if (question.includes('nfl') || 
@@ -245,7 +245,7 @@ export class PolymarketAdapter implements PlatformAdapter {
         question.includes('sports') ||
         question.includes('team') ||
         question.includes('match')) {
-      return 'Sports';
+      return 'SPORTS';
     }
     
     if (question.includes('election') || 
@@ -255,19 +255,19 @@ export class PolymarketAdapter implements PlatformAdapter {
         question.includes('politics') ||
         question.includes('government') ||
         question.includes('congress')) {
-      return 'Politics';
+      return 'POLITICS';
     }
     
     if (question.includes('social') ||
         question.includes('twitter') ||
         question.includes('tiktok')) {
-      return 'Social';
+      return 'SOCIAL';
     }
     
     if (question.includes('data') ||
         question.includes('statistics') ||
         question.includes('metric')) {
-      return 'Data';
+      return 'DATA';
     }
     
     return 'Other';
