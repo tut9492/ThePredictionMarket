@@ -361,7 +361,11 @@ function HomeContent() {
   useEffect(() => {
     async function fetchMarkets() {
       try {
-        const response = await fetch('/api/markets/data');
+        const categoryParam = searchParams.get("category");
+        const category = categoryParam || 'all';
+        const apiUrl = `/api/markets/data${category !== 'all' ? `?category=${category}` : ''}`;
+        
+        const response = await fetch(apiUrl);
         const result = await response.json();
         
         if (result.success && result.data && Object.keys(result.data).length > 0) {
@@ -405,7 +409,7 @@ function HomeContent() {
     }
     
     fetchMarkets();
-  }, []);
+  }, [searchParams]); // Re-fetch when category changes
 
   // Read category from URL query parameter
   useEffect(() => {
