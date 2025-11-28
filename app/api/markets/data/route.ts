@@ -30,28 +30,40 @@ async function fetchMarketsFromAPI(): Promise<Record<string, StoredMarket>> {
   const markets: Record<string, StoredMarket> = {};
   const adapters: PlatformAdapter[] = [new PolymarketAdapter()];
   
-  for (const adapter of adapters) {
-    const promises = adapter.configs.map(async (config) => {
-      const marketData = await adapter.searchMarket(config.searchTerms);
-      if (marketData && adapter.name === 'Polymarket') {
-        const marketImage = getImageUrl(marketData.image, config.image);
-        markets[config.key] = {
-          key: config.key,
-          category: config.category,
-          image: marketImage,
-          polymarket: {
-            title: marketData.title,
-            candidates: marketData.candidates,
-            volume: marketData.volume,
-            url: marketData.url,
-          },
-          lastUpdated: new Date().toISOString(),
-        };
-      }
-    });
-    await Promise.all(promises);
+  try {
+    for (const adapter of adapters) {
+      const promises = adapter.configs.map(async (config) => {
+        try {
+          const marketData = await adapter.searchMarket(config.searchTerms);
+          if (marketData && adapter.name === 'Polymarket') {
+            const marketImage = getImageUrl(marketData.image, config.image);
+            markets[config.key] = {
+              key: config.key,
+              category: config.category,
+              image: marketImage,
+              polymarket: {
+                title: marketData.title,
+                candidates: marketData.candidates || [],
+                volume: marketData.volume,
+                url: marketData.url,
+              },
+              lastUpdated: new Date().toISOString(),
+            };
+            console.log(`[Markets Data] Fetched ${config.key}: ${marketData.candidates?.length || 0} candidates`);
+          } else {
+            console.warn(`[Markets Data] No data found for ${config.key}`);
+          }
+        } catch (error) {
+          console.error(`[Markets Data] Error fetching ${config.key}:`, error);
+        }
+      });
+      await Promise.all(promises);
+    }
+  } catch (error) {
+    console.error('[Markets Data] Error in fetchMarketsFromAPI:', error);
   }
   
+  console.log(`[Markets Data] Fetched ${Object.keys(markets).length} markets from API`);
   return markets;
 }
 
