@@ -1,39 +1,97 @@
 import { NextResponse } from "next/server";
 import { readFile } from "fs/promises";
 import { join } from "path";
+import { PolymarketAdapter } from "@/lib/platforms/polymarket";
+import { PlatformAdapter } from "@/lib/platforms/base/types";
+import { getImageUrl } from "@/lib/utils/images";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 30; // Cache for 30 seconds
 
 const DATA_FILE = join(process.cwd(), 'data', 'markets.json');
 
+interface StoredMarket {
+  key: string;
+  category: string;
+  image: string;
+  polymarket: {
+    title: string;
+    candidates: Array<{ name: string; odds: number }>;
+    volume: string;
+    url: string;
+  };
+  lastUpdated: string;
+}
+
+/**
+ * Fetch markets directly from platform adapters (fallback when file system unavailable)
+ */
+async function fetchMarketsFromAPI(): Promise<Record<string, StoredMarket>> {
+  const markets: Record<string, StoredMarket> = {};
+  const adapters: PlatformAdapter[] = [new PolymarketAdapter()];
+  
+  for (const adapter of adapters) {
+    const promises = adapter.configs.map(async (config) => {
+      const marketData = await adapter.searchMarket(config.searchTerms);
+      if (marketData && adapter.name === 'Polymarket') {
+        const marketImage = getImageUrl(marketData.image, config.image);
+        markets[config.key] = {
+          key: config.key,
+          category: config.category,
+          image: marketImage,
+          polymarket: {
+            title: marketData.title,
+            candidates: marketData.candidates,
+            volume: marketData.volume,
+            url: marketData.url,
+          },
+          lastUpdated: new Date().toISOString(),
+        };
+      }
+    });
+    await Promise.all(promises);
+  }
+  
+  return markets;
+}
+
 /**
  * GET /api/markets/data
  * Returns stored market data from the backend
  * Supports category filtering via ?category= query parameter
+ * Falls back to fetching from API if file system is unavailable (Vercel)
  */
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
     
-    // Try to read the stored data file
-    const fileContents = await readFile(DATA_FILE, 'utf-8');
-    const fileData = JSON.parse(fileContents);
-    
-    // Handle both array and object formats
+    let fileData: any = null;
     let markets: Record<string, any> = {};
-    if (Array.isArray(fileData.markets)) {
-      // If it's an array, convert to object keyed by market key
-      fileData.markets.forEach((market: any) => {
-        const key = market.key || market.id || `market_${market.id}`;
-        markets[key] = market;
-      });
-    } else if (fileData.markets && typeof fileData.markets === 'object') {
-      markets = fileData.markets;
-    } else if (typeof fileData === 'object' && !Array.isArray(fileData)) {
-      // If fileData itself is the markets object
-      markets = fileData;
+    
+    // Try to read the stored data file (works locally, may fail on Vercel)
+    try {
+      const fileContents = await readFile(DATA_FILE, 'utf-8');
+      fileData = JSON.parse(fileContents);
+    
+      // Handle both array and object formats
+      if (Array.isArray(fileData.markets)) {
+        // If it's an array, convert to object keyed by market key
+        fileData.markets.forEach((market: any) => {
+          const key = market.key || market.id || `market_${market.id}`;
+          markets[key] = market;
+        });
+      } else if (fileData.markets && typeof fileData.markets === 'object') {
+        markets = fileData.markets;
+      } else if (typeof fileData === 'object' && !Array.isArray(fileData)) {
+        // If fileData itself is the markets object
+        markets = fileData;
+      }
+    } catch (fileError) {
+      // File system unavailable (Vercel) - fetch directly from API
+      console.log('[Markets Data] File system unavailable, fetching from API...');
+      markets = await fetchMarketsFromAPI();
+      fileData = { lastUpdated: new Date().toISOString() };
     }
     
     // Filter by category if specified

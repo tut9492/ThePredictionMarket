@@ -92,26 +92,34 @@ export async function GET() {
       await syncPlatformMarkets(adapter, markets);
     }
 
-    // Ensure data directory exists
+    // Try to save to JSON file (works locally, may fail on Vercel's read-only file system)
+    try {
     const dataDir = join(process.cwd(), 'data');
     try {
       await mkdir(dataDir, { recursive: true });
     } catch (error) {
       // Directory might already exist, that's fine
-      console.log('[Sync] Data directory ready');
+        console.log('[Sync] Data directory ready');
     }
 
-    // Save to JSON file
     await writeFile(DATA_FILE, JSON.stringify(markets, null, 2), 'utf-8');
-
-    console.log(`[Sync] Saved ${Object.keys(markets).length} markets`);
+      console.log(`[Sync] Saved ${Object.keys(markets).length} markets to file`);
+    } catch (fileError) {
+      // File system unavailable (Vercel) - this is expected, data is returned in response
+      console.log('[Sync] File system unavailable (Vercel), returning data in response');
+    }
 
     return NextResponse.json({
       success: true,
       count: Object.keys(markets).length,
       markets: Object.keys(markets),
+      data: markets, // Include full data for Vercel (file system unavailable)
       platforms: adapters.map(a => a.name),
       timestamp: new Date().toISOString(),
+    }, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+      },
     });
   } catch (error) {
     console.error('[Sync] Error:', error);
