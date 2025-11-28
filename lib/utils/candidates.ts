@@ -90,13 +90,33 @@ export function extractCandidatesFromPolymarket(
     
     // If we didn't get candidates from multiple markets, try parsing from single market
     const market = markets[0];
-    const outcomePrices = typeof market.outcomePrices === 'string' 
-      ? JSON.parse(market.outcomePrices) 
-      : market.outcomePrices;
     
-    const outcomes = typeof market.outcomes === 'string' 
-      ? JSON.parse(market.outcomes) 
-      : market.outcomes || [];
+    // Parse outcome prices - handle both string and array formats
+    let outcomePrices: any[] = [];
+    try {
+      if (typeof market.outcomePrices === 'string') {
+        outcomePrices = JSON.parse(market.outcomePrices);
+      } else if (Array.isArray(market.outcomePrices)) {
+        outcomePrices = market.outcomePrices;
+      }
+    } catch (e) {
+      console.warn('[Candidates] Failed to parse outcomePrices:', e);
+    }
+    
+    // Parse outcomes - handle both string and array formats
+    let outcomes: string[] = [];
+    try {
+      if (typeof market.outcomes === 'string') {
+        outcomes = JSON.parse(market.outcomes);
+      } else if (Array.isArray(market.outcomes)) {
+        outcomes = market.outcomes;
+      }
+    } catch (e) {
+      console.warn('[Candidates] Failed to parse outcomes:', e);
+    }
+    
+    // Debug logging
+    console.log(`[Candidates] Event: ${eventTitle}, Outcomes:`, outcomes, 'Prices:', outcomePrices);
     
     let yes = 50;
     let no = 50;
@@ -109,18 +129,22 @@ export function extractCandidatesFromPolymarket(
     // Get candidate names from outcomes array
     if (Array.isArray(outcomes) && outcomes.length > 0) {
       // Check if this is a binary Yes/No market or has named candidates
-      const hasNamedCandidates = outcomes.some((o: string) => 
-        o !== 'Yes' && o !== 'No' && o.trim() !== ''
-      );
+      const hasNamedCandidates = outcomes.some((o: string) => {
+        const oStr = String(o).trim();
+        return oStr !== 'Yes' && oStr !== 'No' && oStr !== 'YES' && oStr !== 'NO' && oStr !== '';
+      });
       
       if (hasNamedCandidates) {
         // Market with named candidates - map each outcome to its price
         outcomes.forEach((name: string, idx: number) => {
-          if (name && name !== 'Yes' && name !== 'No') {
+          const nameStr = String(name).trim();
+          if (nameStr && 
+              nameStr !== 'Yes' && nameStr !== 'No' && 
+              nameStr !== 'YES' && nameStr !== 'NO') {
             const price = outcomePrices[idx];
-            if (price !== undefined && price !== null) {
+            if (price !== undefined && price !== null && !isNaN(Number(price))) {
               candidates.push({
-                name: name.toUpperCase(),
+                name: nameStr.toUpperCase(),
                 odds: Math.round(Number(price) * 100),
               });
             }

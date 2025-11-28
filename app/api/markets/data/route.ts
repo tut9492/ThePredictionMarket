@@ -133,6 +133,10 @@ export async function GET(request: Request) {
       data: transformedData,
       count: Object.keys(transformedData).length,
       timestamp: new Date().toISOString(),
+    }, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60',
+      },
     });
   } catch (error) {
     // If file doesn't exist or can't be read, return empty
