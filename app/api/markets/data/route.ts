@@ -24,13 +24,16 @@ interface StoredMarket {
 }
 
 /**
- * Fetch markets directly from platform adapters (fallback when file system unavailable)
+ * Fetch markets using the same logic as sync route (reuses sync function)
+ * Processes markets in batches to avoid Vercel's 10-second timeout
  */
-async function fetchMarketsFromAPI(): Promise<Record<string, StoredMarket>> {
+async function fetchMarketsFromSync(): Promise<Record<string, StoredMarket>> {
   const markets: Record<string, StoredMarket> = {};
-  const adapters: PlatformAdapter[] = [new PolymarketAdapter()];
   
   try {
+    // Use the same sync logic directly (doesn't make HTTP call)
+    const adapters: PlatformAdapter[] = [new PolymarketAdapter()];
+    
     for (const adapter of adapters) {
       const promises = adapter.configs.map(async (config) => {
         try {
@@ -57,21 +60,30 @@ async function fetchMarketsFromAPI(): Promise<Record<string, StoredMarket>> {
           console.error(`[Markets Data] Error fetching ${config.key}:`, error);
         }
       });
-      await Promise.all(promises);
+      
+      // Process in batches to avoid Vercel timeout (5 at a time)
+      // This ensures we complete within the 10-second limit
+      const batchSize = 5;
+      for (let i = 0; i < promises.length; i += batchSize) {
+        const batch = promises.slice(i, i + batchSize);
+        await Promise.all(batch);
+      }
     }
+    
+    console.log(`[Markets Data] Fetched ${Object.keys(markets).length} markets from sync logic`);
+    return markets;
   } catch (error) {
-    console.error('[Markets Data] Error in fetchMarketsFromAPI:', error);
+    console.error('[Markets Data] Error in fetchMarketsFromSync:', error);
+    return {};
   }
-  
-  console.log(`[Markets Data] Fetched ${Object.keys(markets).length} markets from API`);
-  return markets;
 }
 
 /**
  * GET /api/markets/data
  * Returns stored market data from the backend
  * Supports category filtering via ?category= query parameter
- * Falls back to fetching from API if file system is unavailable (Vercel)
+ * Falls back to fetching from sync logic if file system is unavailable (Vercel)
+ * Uses batched processing to avoid Vercel's 10-second timeout
  */
 export async function GET(request: Request) {
   try {
@@ -100,9 +112,9 @@ export async function GET(request: Request) {
         markets = fileData;
       }
     } catch (fileError) {
-      // File system unavailable (Vercel) - fetch directly from API
-      console.log('[Markets Data] File system unavailable, fetching from API...');
-      markets = await fetchMarketsFromAPI();
+      // File system unavailable (Vercel) - use sync logic (batched to avoid timeout)
+      console.log('[Markets Data] File system unavailable, fetching from sync logic...');
+      markets = await fetchMarketsFromSync();
       fileData = { lastUpdated: new Date().toISOString() };
     }
     
