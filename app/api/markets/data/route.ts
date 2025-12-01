@@ -4,6 +4,11 @@ import { join } from "path";
 import { PolymarketAdapter } from "@/lib/platforms/polymarket";
 import { PlatformAdapter } from "@/lib/platforms/base/types";
 import { getImageUrl } from "@/lib/utils/images";
+import { matchSearchTerms } from "@/lib/utils/search";
+import { extractCandidatesFromPolymarket } from "@/lib/utils/candidates";
+import { formatVolume } from "@/lib/utils/volume";
+import { extractImageUrl } from "@/lib/utils/images";
+import { addPolymarketReferral } from "@/lib/utils/polymarket";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 30; // Cache for 30 seconds
@@ -70,13 +75,6 @@ async function fetchMarketsFromSync(): Promise<Record<string, StoredMarket>> {
       }
 
       // Now search through the cached events for each market config
-      // Import utilities needed for matching
-      const { matchSearchTerms } = await import('@/lib/utils/search');
-      const { extractCandidatesFromPolymarket } = await import('@/lib/utils/candidates');
-      const { formatVolume } = await import('@/lib/utils/volume');
-      const { extractImageUrl } = await import('@/lib/utils/images');
-      const { addPolymarketReferral } = await import('@/lib/utils/polymarket');
-
       for (const config of adapter.configs) {
         try {
           // Search through cached events instead of making new API call
