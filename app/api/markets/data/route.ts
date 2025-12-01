@@ -24,53 +24,118 @@ interface StoredMarket {
 }
 
 /**
- * Fetch markets using the same logic as sync route (reuses sync function)
- * Processes markets in batches to avoid Vercel's 10-second timeout
+ * Fetch markets using optimized approach - ONE API call instead of 20
+ * Fetches all events once, then searches through them for each market config
+ * This prevents Vercel timeout by reducing API calls from 20 to 1
  */
 async function fetchMarketsFromSync(): Promise<Record<string, StoredMarket>> {
   const markets: Record<string, StoredMarket> = {};
   
   try {
-    // Use the same sync logic directly (doesn't make HTTP call)
     const adapters: PlatformAdapter[] = [new PolymarketAdapter()];
     
     for (const adapter of adapters) {
-      const promises = adapter.configs.map(async (config) => {
-        try {
-          const marketData = await adapter.searchMarket(config.searchTerms);
-          if (marketData && adapter.name === 'Polymarket') {
-            const marketImage = getImageUrl(marketData.image, config.image);
-            markets[config.key] = {
-              key: config.key,
-              category: config.category,
-              image: marketImage,
-              polymarket: {
-                title: marketData.title,
-                candidates: marketData.candidates || [],
-                volume: marketData.volume,
-                url: marketData.url,
-              },
-              lastUpdated: new Date().toISOString(),
-            };
-            console.log(`[Markets Data] Fetched ${config.key}: ${marketData.candidates?.length || 0} candidates`);
-          } else {
-            console.warn(`[Markets Data] No data found for ${config.key}`);
-          }
-        } catch (error) {
-          console.error(`[Markets Data] Error fetching ${config.key}:`, error);
+      // Make ONE API call to fetch all events (instead of 20 separate calls)
+      let allEvents: any[] = [];
+      try {
+        const url = new URL(`${adapter.apiBase}/events`);
+        url.searchParams.set("active", "true");
+        url.searchParams.set("closed", "false");
+        url.searchParams.set("limit", "200");
+        url.searchParams.set("order", "volume");
+        url.searchParams.set("ascending", "false");
+
+        const response = await fetch(url.toString(), {
+          signal: AbortSignal.timeout(10000), // 10 second timeout
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          console.error(`[Markets Data] API error: ${response.status}`);
+          return {};
         }
-      });
-      
-      // Process in batches to avoid Vercel timeout (5 at a time)
-      // This ensures we complete within the 10-second limit
-      const batchSize = 5;
-      for (let i = 0; i < promises.length; i += batchSize) {
-        const batch = promises.slice(i, i + batchSize);
-        await Promise.all(batch);
+
+        allEvents = await response.json();
+        if (!Array.isArray(allEvents) || allEvents.length === 0) {
+          console.warn('[Markets Data] No events returned from API');
+          return {};
+        }
+        
+        console.log(`[Markets Data] Fetched ${allEvents.length} events in single API call`);
+      } catch (error) {
+        console.error('[Markets Data] Error fetching events:', error);
+        return {};
+      }
+
+      // Now search through the cached events for each market config
+      // Import utilities needed for matching
+      const { matchSearchTerms } = await import('@/lib/utils/search');
+      const { extractCandidatesFromPolymarket } = await import('@/lib/utils/candidates');
+      const { formatVolume } = await import('@/lib/utils/volume');
+      const { extractImageUrl } = await import('@/lib/utils/images');
+      const { addPolymarketReferral } = await import('@/lib/utils/polymarket');
+
+      for (const config of adapter.configs) {
+        try {
+          // Search through cached events instead of making new API call
+          const matchingEvent = matchSearchTerms(
+            allEvents,
+            config.searchTerms,
+            (e) => e.title || '',
+            (e) => e.slug || '',
+            (e) => e.volume || e.volume24hr || 0
+          );
+
+          if (!matchingEvent) {
+            console.warn(`[Markets Data] No match found for: ${config.key}`);
+            continue;
+          }
+
+          const eventMarkets = matchingEvent.markets || [];
+          if (eventMarkets.length === 0) {
+            continue;
+          }
+
+          // Extract candidates
+          const candidates = extractCandidatesFromPolymarket(eventMarkets, matchingEvent.title || '');
+
+          // Get volume
+          const volume = matchingEvent.volume || matchingEvent.volume24hr || matchingEvent.volume7d || 0;
+          const volumeNum = typeof volume === 'string' ? parseFloat(volume) : volume;
+          const volumeFormatted = formatVolume(volumeNum);
+
+          // Extract image
+          const imageUrl = extractImageUrl(matchingEvent, eventMarkets[0], '');
+          const marketImage = getImageUrl(imageUrl, config.image);
+
+          // Build URL
+          const slug = matchingEvent.slug || matchingEvent.ticker || '';
+          const baseUrl = `${adapter.websiteBase}/event/${slug}`;
+          const urlWithReferral = addPolymarketReferral(baseUrl);
+
+          markets[config.key] = {
+            key: config.key,
+            category: config.category,
+            image: marketImage,
+            polymarket: {
+              title: matchingEvent.title || eventMarkets[0].question || 'Unknown Market',
+              candidates: candidates || [],
+              volume: volumeFormatted,
+              url: urlWithReferral,
+            },
+            lastUpdated: new Date().toISOString(),
+          };
+          
+          console.log(`[Markets Data] Matched ${config.key}: ${candidates?.length || 0} candidates`);
+        } catch (error) {
+          console.error(`[Markets Data] Error processing ${config.key}:`, error);
+        }
       }
     }
     
-    console.log(`[Markets Data] Fetched ${Object.keys(markets).length} markets from sync logic`);
+    console.log(`[Markets Data] Fetched ${Object.keys(markets).length} markets from optimized sync`);
     return markets;
   } catch (error) {
     console.error('[Markets Data] Error in fetchMarketsFromSync:', error);
