@@ -1,6 +1,7 @@
 /**
  * Matches events/markets by search terms
- * Requires 50%+ term match, sorted by match score + volume
+ * Requires 60%+ term match with at least one exact word match
+ * Prioritizes exact word matches over substring matches
  */
 export interface SearchResult {
   event: any;
@@ -20,22 +21,45 @@ export function matchSearchTerms(
     const title = getTitle(event).toLowerCase();
     const slug = getSlug(event).toLowerCase();
     
+    // Split into words for exact matching
+    const titleWords = title.split(/\s+/);
+    const slugWords = slug.split(/\s+/);
+    const allWords = [...titleWords, ...slugWords];
+    
     let matchCount = 0;
+    let exactMatchCount = 0;
+    
     searchTerms.forEach(term => {
       const lowerTerm = term.toLowerCase();
-      if (title.includes(lowerTerm) || slug.includes(lowerTerm)) {
+      // Check for exact word match (more important)
+      if (allWords.includes(lowerTerm)) {
+        exactMatchCount++;
+        matchCount++;
+      } else if (title.includes(lowerTerm) || slug.includes(lowerTerm)) {
+        // Substring match (less important)
         matchCount++;
       }
     });
     
-    return { event, score: matchCount, totalTerms: searchTerms.length };
+    return { 
+      event, 
+      score: matchCount, 
+      exactScore: exactMatchCount,
+      totalTerms: searchTerms.length 
+    };
   });
   
-  // Filter to events that match at least 50% of terms, then sort by best match
+  // Require at least 60% match AND at least one exact word match
+  const minMatch = Math.ceil(searchTerms.length * 0.6);
   const validMatches = scoredEvents
-    .filter(({ score, totalTerms }) => score >= Math.ceil(totalTerms * 0.5))
+    .filter(({ score, exactScore, totalTerms }) => 
+      score >= minMatch && exactScore > 0
+    )
     .sort((a, b) => {
-      // Sort by match score (descending), then by volume (descending)
+      // Sort by exact matches first, then total matches, then volume
+      if (b.exactScore !== a.exactScore) {
+        return b.exactScore - a.exactScore;
+      }
       if (b.score !== a.score) {
         return b.score - a.score;
       }
@@ -46,4 +70,6 @@ export function matchSearchTerms(
   
   return validMatches.length > 0 ? validMatches[0].event : null;
 }
+
+
 
