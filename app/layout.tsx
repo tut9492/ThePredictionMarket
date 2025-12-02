@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Aboreto } from "next/font/google";
 import "./globals.css";
+import { Providers } from "./providers";
 
 const aboreto = Aboreto({
   weight: "400",
@@ -21,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${aboreto.variable} font-aboreto antialiased`}>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

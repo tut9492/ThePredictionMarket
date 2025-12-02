@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { CategoryNav } from "./CategoryNav";
 
 type CategoryKey = "ALL" | "POLITICS" | "SPORTS" | "CRYPTO" | "SOCIAL" | "DATA";
@@ -11,6 +13,13 @@ interface HeaderProps {
 }
 
 export function Header({ selectedCategory, onCategoryChange }: HeaderProps) {
+  const { data: session, status } = useSession()
+  const router = useRouter()
+
+  const displayName = session?.user?.username 
+    ? `@${session.user.username}` 
+    : session?.user?.name || ""
+
   return (
     <header className="bg-[#FAFAF6] border-b border-[#E5E5E5] sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-4">
@@ -39,12 +48,32 @@ export function Header({ selectedCategory, onCategoryChange }: HeaderProps) {
 
           {/* Login Button - 200px right of center */}
           <div className="flex items-center -mr-[200px]">
-            <button className="px-6 py-2 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors flex items-center gap-2">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-              LOGIN
-            </button>
+            {status === "loading" ? (
+              <div className="px-6 py-2 text-sm text-gray-500">Loading...</div>
+            ) : session ? (
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => router.push("/profile")}
+                  className="text-sm text-gray-700 hover:text-black transition-colors cursor-pointer"
+                  title="Click to edit profile"
+                >
+                  {displayName}
+                </button>
+                <button
+                  onClick={() => signOut()}
+                  className="px-6 py-2 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors"
+                >
+                  LOGOUT
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => signIn()}
+                className="px-6 py-2 bg-black text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors"
+              >
+                LOGIN
+              </button>
+            )}
           </div>
         </div>
 
