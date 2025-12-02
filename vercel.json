@@ -7,10 +7,6 @@
     {
       "path": "/api/markets/sync",
       "schedule": "0 17 * * *"
-    },
-    {
-      "path": "/api/markets/sync",
-      "schedule": "0 1 * * *"
     }
   ]
 }
