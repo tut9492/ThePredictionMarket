@@ -16,8 +16,8 @@ export function Header({ selectedCategory, onCategoryChange }: HeaderProps) {
   const { data: session, status } = useSession()
   const router = useRouter()
 
-  const displayName = session?.user?.username 
-    ? `@${session.user.username}` 
+  const displayName = session && (session.user as any)?.username 
+    ? `@${(session.user as any).username}` 
     : session?.user?.name || ""
 
   return (

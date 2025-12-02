@@ -1,15 +1,14 @@
 import { NextResponse } from "next/server"
-import { getServerSession } from "next-auth/next"
+import { auth } from "@/lib/auth/config"
 import { getUsername, setUsername } from "@/lib/storage/users"
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 
 /**
  * GET /api/user/username
  * Get the current user's username
  */
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const session = await getServerSession(authOptions)
+    const session = await auth()
     
     if (!session?.user?.email) {
       return NextResponse.json(
@@ -39,7 +38,7 @@ export async function GET() {
  */
 export async function POST(request: Request) {
   try {
-    const session = await getServerSession(authOptions)
+    const session = await auth()
     
     if (!session?.user?.email) {
       return NextResponse.json(
