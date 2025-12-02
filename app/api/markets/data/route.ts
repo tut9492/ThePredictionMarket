@@ -95,27 +95,38 @@ export async function GET(request: Request) {
     let fileData: any = null;
     let markets: Record<string, any> = {};
     
-    // Try to read the stored data file (works locally, may fail on Vercel)
-    try {
-      const fileContents = await readFile(DATA_FILE, 'utf-8');
-      fileData = JSON.parse(fileContents);
+    // On Vercel, always fetch fresh data (skip committed file to avoid stale data)
+    // Locally, read from file for faster performance
+    const isVercel = process.env.VERCEL === '1';
     
-      // Handle both array and object formats
-      if (Array.isArray(fileData.markets)) {
-        // If it's an array, convert to object keyed by market key
-        fileData.markets.forEach((market: any) => {
-          const key = market.key || market.id || `market_${market.id}`;
-          markets[key] = market;
-        });
-      } else if (fileData.markets && typeof fileData.markets === 'object') {
-        markets = fileData.markets;
-      } else if (typeof fileData === 'object' && !Array.isArray(fileData)) {
-        // If fileData itself is the markets object
-        markets = fileData;
+    if (!isVercel) {
+      // Local: Try to read from file (faster, works great)
+      try {
+        const fileContents = await readFile(DATA_FILE, 'utf-8');
+        fileData = JSON.parse(fileContents);
+      
+        // Handle both array and object formats
+        if (Array.isArray(fileData.markets)) {
+          // If it's an array, convert to object keyed by market key
+          fileData.markets.forEach((market: any) => {
+            const key = market.key || market.id || `market_${market.id}`;
+            markets[key] = market;
+          });
+        } else if (fileData.markets && typeof fileData.markets === 'object') {
+          markets = fileData.markets;
+        } else if (typeof fileData === 'object' && !Array.isArray(fileData)) {
+          // If fileData itself is the markets object
+          markets = fileData;
+        }
+      } catch (fileError) {
+        // File doesn't exist locally, fetch from API
+        console.log('[Markets Data] File not found locally, fetching from sync logic...');
+        markets = await fetchMarketsFromSync();
+        fileData = { lastUpdated: new Date().toISOString() };
       }
-    } catch (fileError) {
-      // File system unavailable (Vercel) - use sync logic (batched to avoid timeout)
-      console.log('[Markets Data] File system unavailable, fetching from sync logic...');
+    } else {
+      // Vercel: Always fetch fresh data (skip committed file to avoid stale data)
+      console.log('[Markets Data] Running on Vercel, fetching fresh data from sync logic...');
       markets = await fetchMarketsFromSync();
       fileData = { lastUpdated: new Date().toISOString() };
     }
