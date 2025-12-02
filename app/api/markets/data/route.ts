@@ -146,6 +146,11 @@ export async function GET(request: Request) {
     // Transform to match frontend format
     const transformedData: Record<string, any> = {};
     Object.entries(markets).forEach(([key, market]: [string, any]) => {
+      // Log image for debugging
+      if (key === 'superBowl' || key === 'highestGrossingMovie') {
+        console.log(`[Markets Data] ${key} image:`, market.image);
+      }
+      
       transformedData[key] = {
         category: market.category,
         image: market.image || '/superbowl.png',
