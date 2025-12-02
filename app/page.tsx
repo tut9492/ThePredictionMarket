@@ -620,18 +620,22 @@ function HomeContent() {
               </div>
               
               <div className="col-span-4 flex items-center gap-4">
-                <div className="relative w-20 h-20 rounded overflow-hidden border border-gray-200 flex-shrink-0">
-                  <img 
-                    src={market.image} 
-                    alt={market.polymarket.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute -top-3 -left-3">
+                <div className="relative flex-shrink-0">
+                  <div className="w-20 h-20 rounded overflow-hidden border border-gray-200">
                     <img 
-                      src="/prediction-market/market-logos/polymarket.png"
-                      alt="Polymarket"
-                      className="w-7 h-7 rounded-full"
+                      src={market.image} 
+                      alt={market.polymarket.title}
+                      className="w-full h-full object-cover"
                     />
+                  </div>
+                  <div className="absolute -top-2 -left-2 z-10">
+                    <div className="bg-white rounded-full p-0.5 shadow-md border-2 border-gray-300">
+                      <img 
+                        src="/prediction-market/market-logos/polymarket.png"
+                        alt="Polymarket"
+                        className="w-7 h-7 rounded-full"
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="min-w-0">
