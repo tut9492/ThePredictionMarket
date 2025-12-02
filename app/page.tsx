@@ -569,7 +569,7 @@ function HomeContent() {
         </div>
 
         {/* List View Section */}
-        <div className="bg-white rounded-lg border border-[#E5E5E5] overflow-hidden shadow-sm">
+        <div className="bg-white rounded-lg border border-[#E5E5E5] shadow-sm">
           {/* Sort Toggles */}
           <div className="flex items-center justify-between px-8 py-4 bg-gray-50 border-b border-gray-200">
             <div className="flex items-center gap-2">
