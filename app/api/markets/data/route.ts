@@ -9,6 +9,7 @@ import { extractCandidatesFromPolymarket } from "@/lib/utils/candidates";
 import { extractImageUrl } from "@/lib/utils/images";
 import { formatVolume } from "@/lib/utils/volume";
 import { addPolymarketReferral } from "@/lib/utils/polymarket";
+import { getMarkets, isKvAvailable } from "@/lib/storage/kv";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 30; // Cache for 30 seconds
@@ -152,38 +153,55 @@ export async function GET(request: Request) {
     let fileData: any = null;
     let markets: Record<string, any> = {};
     
-    // On Vercel, always fetch fresh data (skip committed file to avoid stale data)
-    // Locally, read from file for faster performance
-    const isVercel = process.env.VERCEL === '1';
-    
-    if (!isVercel) {
-      // Local: Try to read from file (faster, works great)
-      try {
-        const fileContents = await readFile(DATA_FILE, 'utf-8');
-        fileData = JSON.parse(fileContents);
-      
-        // Handle both array and object formats
-        if (Array.isArray(fileData.markets)) {
-          // If it's an array, convert to object keyed by market key
-          fileData.markets.forEach((market: any) => {
-            const key = market.key || market.id || `market_${market.id}`;
-            markets[key] = market;
-          });
-        } else if (fileData.markets && typeof fileData.markets === 'object') {
-          markets = fileData.markets;
-        } else if (typeof fileData === 'object' && !Array.isArray(fileData)) {
-          // If fileData itself is the markets object
-          markets = fileData;
-        }
-      } catch (fileError) {
-        // File doesn't exist locally, fetch from API
-        console.log('[Markets Data] File not found locally, fetching from sync logic...');
-        markets = await fetchMarketsFromSync();
-        fileData = { lastUpdated: new Date().toISOString() };
+    // Priority 1: Try to read from KV (fastest, works on Vercel)
+    const kvAvailable = await isKvAvailable();
+    if (kvAvailable) {
+      const kvMarkets = await getMarkets();
+      if (kvMarkets && Object.keys(kvMarkets).length > 0) {
+        console.log('[Markets Data] Using data from KV storage');
+        markets = kvMarkets;
+        fileData = { lastUpdated: kvMarkets[Object.keys(kvMarkets)[0]]?.lastUpdated || new Date().toISOString() };
+      } else {
+        console.log('[Markets Data] KV storage empty, falling back to file/API');
       }
-    } else {
-      // Vercel: Always fetch fresh data (skip committed file to avoid stale data)
-      console.log('[Markets Data] Running on Vercel, fetching fresh data from sync logic...');
+    }
+    
+    // Priority 2: If KV is empty or unavailable, try file system (local dev)
+    if (Object.keys(markets).length === 0) {
+      const isVercel = process.env.VERCEL === '1';
+      
+      if (!isVercel) {
+        // Local: Try to read from file (faster, works great)
+        try {
+          const fileContents = await readFile(DATA_FILE, 'utf-8');
+          fileData = JSON.parse(fileContents);
+        
+          // Handle both array and object formats
+          if (Array.isArray(fileData.markets)) {
+            // If it's an array, convert to object keyed by market key
+            fileData.markets.forEach((market: any) => {
+              const key = market.key || market.id || `market_${market.id}`;
+              markets[key] = market;
+            });
+          } else if (fileData.markets && typeof fileData.markets === 'object') {
+            markets = fileData.markets;
+          } else if (typeof fileData === 'object' && !Array.isArray(fileData)) {
+            // If fileData itself is the markets object
+            markets = fileData;
+          }
+          
+          if (Object.keys(markets).length > 0) {
+            console.log('[Markets Data] Using data from file system');
+          }
+        } catch (fileError) {
+          console.log('[Markets Data] File not found locally');
+        }
+      }
+    }
+    
+    // Priority 3: If still no data, fetch from API (fallback only)
+    if (Object.keys(markets).length === 0) {
+      console.log('[Markets Data] No cached data found, fetching from API (this should be rare with cron jobs)...');
       markets = await fetchMarketsFromSync();
       fileData = { lastUpdated: new Date().toISOString() };
     }

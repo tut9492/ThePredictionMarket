@@ -9,6 +9,7 @@ import { join } from "path";
 import { PolymarketAdapter } from "@/lib/platforms/polymarket";
 import { PlatformAdapter } from "@/lib/platforms/base/types";
 import { getImageUrl } from "@/lib/utils/images";
+import { storeMarkets, isKvAvailable } from "@/lib/storage/kv";
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 60; // Revalidate every 60 seconds
@@ -92,21 +93,34 @@ export async function GET() {
       await syncPlatformMarkets(adapter, markets);
     }
 
-    // Try to save to JSON file (works locally, may fail on Vercel's read-only file system)
+    // Store in KV (works on Vercel and locally if KV is configured)
     try {
-    const dataDir = join(process.cwd(), 'data');
-    try {
-      await mkdir(dataDir, { recursive: true });
-    } catch (error) {
-      // Directory might already exist, that's fine
-        console.log('[Sync] Data directory ready');
+      const kvAvailable = await isKvAvailable();
+      if (kvAvailable) {
+        await storeMarkets(markets);
+        console.log(`[Sync] Stored ${Object.keys(markets).length} markets in KV`);
+      } else {
+        console.log('[Sync] KV not available, skipping KV storage');
+      }
+    } catch (kvError) {
+      console.warn('[Sync] Error storing in KV:', kvError);
     }
 
-    await writeFile(DATA_FILE, JSON.stringify(markets, null, 2), 'utf-8');
+    // Also try to save to JSON file (works locally, may fail on Vercel's read-only file system)
+    try {
+      const dataDir = join(process.cwd(), 'data');
+      try {
+        await mkdir(dataDir, { recursive: true });
+      } catch (error) {
+        // Directory might already exist, that's fine
+        console.log('[Sync] Data directory ready');
+      }
+
+      await writeFile(DATA_FILE, JSON.stringify(markets, null, 2), 'utf-8');
       console.log(`[Sync] Saved ${Object.keys(markets).length} markets to file`);
     } catch (fileError) {
-      // File system unavailable (Vercel) - this is expected, data is returned in response
-      console.log('[Sync] File system unavailable (Vercel), returning data in response');
+      // File system unavailable (Vercel) - this is expected
+      console.log('[Sync] File system unavailable (Vercel), data stored in KV only');
     }
 
     return NextResponse.json({

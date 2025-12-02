@@ -80,3 +80,6 @@ export interface PlatformAdapter {
   extractCategory(market: any): MarketCategory;
 }
 
+
+
+

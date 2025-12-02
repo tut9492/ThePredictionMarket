@@ -1,0 +1,17 @@
+{
+  "crons": [
+    {
+      "path": "/api/markets/sync",
+      "schedule": "0 13 * * *"
+    },
+    {
+      "path": "/api/markets/sync",
+      "schedule": "0 17 * * *"
+    },
+    {
+      "path": "/api/markets/sync",
+      "schedule": "0 1 * * *"
+    }
+  ]
+}
+
