@@ -613,13 +613,13 @@ function HomeContent() {
               href={market.polymarket.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="grid grid-cols-12 gap-4 px-8 py-6 border-b border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer group"
+              className="grid grid-cols-12 gap-4 px-8 py-6 border-b border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer group overflow-visible"
             >
               <div className="col-span-1 flex items-center">
                 {/* Empty column - Platform column removed */}
               </div>
               
-              <div className="col-span-4 flex items-center gap-4">
+              <div className="col-span-4 flex items-center gap-4 overflow-visible">
                 <div className="relative flex-shrink-0">
                   <div className="w-20 h-20 rounded overflow-hidden border border-gray-200">
                     <img 
