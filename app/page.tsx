@@ -365,7 +365,19 @@ function HomeContent() {
         const category = categoryParam || 'all';
         const apiUrl = `/api/markets/data${category !== 'all' ? `?category=${category}` : ''}`;
         
-        const response = await fetch(apiUrl);
+        // Add timeout to prevent infinite loading (15 seconds)
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000);
+        
+        const response = await fetch(apiUrl, {
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          throw new Error(`API error: ${response.status}`);
+        }
+        
         const result = await response.json();
         
         if (result.success && result.data && Object.keys(result.data).length > 0) {
@@ -403,6 +415,7 @@ function HomeContent() {
       } catch (error) {
         console.error('Error fetching market data:', error);
         // Keep static data as fallback
+        // If fetch fails, still show the static LANDING_MARKETS data
       } finally {
         setLoading(false);
       }
@@ -534,9 +547,11 @@ function HomeContent() {
                       </div>
                     ))}
                     <div className="mt-2 flex items-center gap-2">
-                      <div className="w-5 h-5 bg-blue-500 rounded flex items-center justify-center">
-                        <span className="text-white text-[8px] font-bold">P</span>
-                      </div>
+                      <img 
+                        src="/prediction-market/market-logos/polymarket.png"
+                        alt="Polymarket"
+                        className="w-5 h-5 rounded-full"
+                      />
                       <span className="text-[9px] text-gray-500">{market.polymarket.volume}</span>
                     </div>
                   </div>
@@ -583,7 +598,7 @@ function HomeContent() {
           </div>
           {/* Table Header */}
           <div className="grid grid-cols-12 gap-4 px-8 py-4 bg-gray-100 border-b-2 border-gray-300">
-            <div className="col-span-1 text-sm font-bold text-gray-900 uppercase">Platform</div>
+            <div className="col-span-1 text-sm font-bold text-gray-900 uppercase"></div>
             <div className="col-span-4 text-sm font-bold text-gray-900 uppercase">Market</div>
             <div className="col-span-2 text-sm font-bold text-gray-900 uppercase text-center">Odds</div>
             <div className="col-span-2 text-sm font-bold text-gray-900 uppercase text-center">Yes</div>
@@ -601,19 +616,24 @@ function HomeContent() {
               className="grid grid-cols-12 gap-4 px-8 py-6 border-b border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer group"
             >
               <div className="col-span-1 flex items-center">
-                <div className="w-16 h-16 bg-white rounded border border-gray-200 p-2 relative">
-                  <img 
-                    src="/prediction-market/market-logos/polymarket.png"
-                    alt="Polymarket"
-                    className="w-full h-full object-contain"
-                  />
-                  <div className="absolute -top-1 -left-1 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">P</span>
-                  </div>
-                </div>
+                {/* Empty column - Platform column removed */}
               </div>
               
               <div className="col-span-4 flex items-center gap-4">
+                <div className="relative w-20 h-20 rounded overflow-hidden border border-gray-200 flex-shrink-0">
+                  <img 
+                    src={market.image} 
+                    alt={market.polymarket.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute -top-3 -left-3">
+                    <img 
+                      src="/prediction-market/market-logos/polymarket.png"
+                      alt="Polymarket"
+                      className="w-7 h-7 rounded-full"
+                    />
+                  </div>
+                </div>
                 <div className="min-w-0">
                   <div className="font-semibold text-base text-gray-900 group-hover:text-black uppercase">
                     {market.polymarket.title}
